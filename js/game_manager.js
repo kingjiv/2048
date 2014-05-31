@@ -28,11 +28,7 @@ GameManager.prototype.keepPlaying = function () {
 
 // Return true if the game is lost, or has won and the user hasn't kept playing
 GameManager.prototype.isGameTerminated = function () {
-  if (this.over || (this.won && !this.keepPlaying)) {
-    return true;
-  } else {
-    return false;
-  }
+  return this.over || (this.won && !this.keepPlaying);
 };
 
 // Set up the game
@@ -64,6 +60,10 @@ GameManager.prototype.setup = function () {
 
 // Set up the initial tiles to start the game with
 GameManager.prototype.addStartTiles = function () {
+  // add an initial 2048 tile
+  var tile = new Tile(this.grid.cells[0][0], 2048);
+  this.grid.insertTile(tile);
+  
   for (var i = 0; i < this.startTiles; i++) {
     this.addRandomTile();
   }
@@ -171,7 +171,7 @@ GameManager.prototype.move = function (direction) {
           self.score += merged.value;
 
           // The mighty 2048 tile
-          if (merged.value === 2048) self.won = true;
+          if (merged.value === 4096) self.won = true;
         } else {
           self.moveTile(tile, positions.farthest);
         }
