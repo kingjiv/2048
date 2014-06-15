@@ -1,4 +1,4 @@
-var MOVE_DELAY = 10;
+var MOVE_DELAY = 500;
 
 
 function newPlayer(gm){
