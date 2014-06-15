@@ -18,10 +18,12 @@ window.fakeStorage = {
   }
 };
 
-function LocalStorageManager() {
-  this.bestScoreKey     = "bestScore";
-  this.gameStateKey     = "gameState";
-  this.noticeClosedKey  = "noticeClosed";
+function LocalStorageManager(prefix) {
+  if(!prefix) prefix = "";
+
+  this.bestScoreKey     = prefix + "bestScore";
+  this.gameStateKey     = prefix + "gameState";
+  this.noticeClosedKey  = prefix + "noticeClosed";
 
   var supported = this.localStorageSupported();
   this.storage = supported ? window.localStorage : window.fakeStorage;

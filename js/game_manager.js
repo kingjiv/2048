@@ -1,7 +1,9 @@
-function GameManager(size, InputManager, Actuator, StorageManager) {
+function GameManager(size, InputManager, Actuator, StorageManager, isBeyond) {
+  this.isBeyond = !!isBeyond;
+
   this.size           = size; // Size of the grid
   this.inputManager   = new InputManager;
-  this.storageManager = new StorageManager;
+  this.storageManager = new StorageManager(this.isBeyond ? "" : "AI");
   this.actuator       = new Actuator;
 
   this.startTiles     = 2;
@@ -60,10 +62,12 @@ GameManager.prototype.setup = function () {
 
 // Set up the initial tiles to start the game with
 GameManager.prototype.addStartTiles = function () {
-  // add an initial 2048 tile
-  var tile = new Tile({x: 0, y: 0}, 2048);
-  this.grid.insertTile(tile);
-  
+  if(this.isBeyond){
+	  // add an initial 2048 tile
+	  var tile = new Tile({x: 0, y: 0}, 2048);
+	  this.grid.insertTile(tile);
+  }
+
   for (var i = 0; i < this.startTiles; i++) {
     this.addRandomTile();
   }
@@ -171,7 +175,9 @@ GameManager.prototype.move = function (direction) {
           self.score += merged.value;
 
           // The mighty 2048 tile
-          if (merged.value === 4096) self.won = true;
+          if ((this.isBeyond && merged.value === 4096)
+			  ||
+			  (!this.isBeyond && merged.value === 2048)) self.won = true;
         } else {
           self.moveTile(tile, positions.farthest);
         }
@@ -192,6 +198,8 @@ GameManager.prototype.move = function (direction) {
 
     this.actuate();
   }
+  
+  return moved;
 };
 
 // Get the vector representing the chosen direction
@@ -254,7 +262,7 @@ GameManager.prototype.tileMatchesAvailable = function () {
       tile = this.grid.cellContent({ x: x, y: y });
 
       if (tile) {
-        for (var direction = 0; direction < 4; direction++) {
+        for (var direction = 0; direction < 2; direction++) {
           var vector = self.getVector(direction);
           var cell   = { x: x + vector.x, y: y + vector.y };
 
