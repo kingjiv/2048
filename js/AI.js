@@ -64,8 +64,8 @@ function TopLefter(gm){
 
 /* makes move based on move with max score */
 function ScoreMaxer(gm, searchDepth, depthScale){
-	this.searchDepth = 4;
-	this.depthScale = .5;  // a scale factor to prioritize points at shallower depths
+	this.searchDepth = searchDepth;
+	this.depthScale = depthScale;  // a scale factor to prioritize points at shallower depths
 
 	this.gm = gm;
 	
