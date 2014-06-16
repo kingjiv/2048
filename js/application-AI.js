@@ -1,7 +1,9 @@
 function updateMoveDelay(){
-	var mps = document.getElementById("mps").value;
+	var mps = +document.getElementById("mps").value;
 
-	MOVE_DELAY = 1000/mps;
+	if(isNaN(mps)) mps = 1;
+
+	MOVE_DELAY = Math.max(0, 1000/mps);
 }
 
 // Wait till the browser is ready to render the game (avoids glitches)
@@ -10,6 +12,7 @@ window.requestAnimationFrame(function () {
   
   // set up the moves per second controls
   document.getElementById("mps-update-button").addEventListener('click', updateMoveDelay, false);
+  updateMoveDelay();
 
   var gp = newPlayer(gm); 
 
