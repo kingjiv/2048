@@ -1,11 +1,20 @@
+function updateMoveDelay(){
+	var mps = document.getElementById("mps").value;
+
+	MOVE_DELAY = 1000/mps;
+}
+
 // Wait till the browser is ready to render the game (avoids glitches)
 window.requestAnimationFrame(function () {
   var gm = new GameManager(4, KeyboardInputManager, HTMLActuator, LocalStorageManager);
   
+  // set up the moves per second controls
+  document.getElementById("mps-update-button").addEventListener('click', updateMoveDelay, false);
+
   var gp = newPlayer(gm); 
 
 /*
-  var RUNS = 500;
+  var RUNS = 3;
   var runCount = 0;
   var depth = 4;
   var scale = .5;
@@ -26,7 +35,7 @@ window.requestAnimationFrame(function () {
 
 console.log((new Date()) + " START");
 
-  var gp = new ScoreMaxer(gm, depth, scale);
+  var gp = new CornerScoreMaxer(gm, depth, scale);
   gp.init();
 
   // MONITOR
