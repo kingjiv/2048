@@ -175,9 +175,9 @@ GameManager.prototype.move = function (direction) {
           self.score += merged.value;
 
           // The mighty 2048 tile
-          if ((this.isBeyond && merged.value === 4096)
+          if ((self.isBeyond && merged.value === 4096)
 			  ||
-			  (!this.isBeyond && merged.value === 2048)) self.won = true;
+			  (!self.isBeyond && merged.value === 2048)) self.won = true;
         } else {
           self.moveTile(tile, positions.farthest);
         }
