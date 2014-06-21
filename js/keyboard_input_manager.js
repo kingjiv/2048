@@ -50,8 +50,8 @@ KeyboardInputManager.prototype.listen = function () {
   };
 
   var rotMap = {
-	  33: -1, // page up (rotate left)
-	  34: 1	// page down (rotate right)
+    33: -1, // page up (rotate left)
+    34: 1   // page down (rotate right)
   }
 
   // Respond to direction keys
@@ -59,7 +59,7 @@ KeyboardInputManager.prototype.listen = function () {
     var modifiers = event.altKey || event.ctrlKey || event.metaKey ||
                     event.shiftKey;
     var mapped    = map[event.which];
-	  var rotMapped = rotMap[event.which];
+    var rotMapped = rotMap[event.which];
 
     // Ignore the event if it's happening in a text field
     if (self.targetIsInput(event)) return;
@@ -70,16 +70,16 @@ KeyboardInputManager.prototype.listen = function () {
         self.emit("move", mapped);
       }
 
-	    if (rotMapped !== undefined) {
+      if (rotMapped !== undefined) {
         event.preventDefault();
         self.emit("rotate", rotMapped);
       }    
 
       // R key restarts the game
-	    if (event.which === 82) {
+      if (event.which === 82) {
         self.restart.call(self, event);
       }
-	  }
+    }
   });
 
   // Respond to button presses
