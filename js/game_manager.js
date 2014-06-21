@@ -157,26 +157,26 @@ GameManager.prototype.rotate = function (direction) {
       // get the cells to swap
       var cells = [
         { x: j, y: i },
-		{ x: this.size - i - 1, y: j },
-		{ x: this.size - j - 1, y: this.size - i - 1 },
-		{ x: i, y: this.size - j - 1 }
-	  ];
+		    { x: this.size - i - 1, y: j },
+		    { x: this.size - j - 1, y: this.size - i - 1 },
+		    { x: i, y: this.size - j - 1 }
+	    ];
 
       // if rotate right, reverse the cells
-	  if(direction === 1) cells.reverse();
+	    if(direction === 1) cells.reverse();
 
       // save the first tile so it is not overwritten
-	  var tmp = this.grid.cellContent(cells[0]);
+  	  var tmp = this.grid.cellContent(cells[0]);
 
-	  for(var k = 1; k < cells.length; k++){
-	    var tile = this.grid.cellContent(cells[k]);
+	    for(var k = 1; k < cells.length; k++){
+	      var tile = this.grid.cellContent(cells[k]);
 
-		// move the tile to its now position
-		this.updateCell(tile, cells[k-1]);
-	  }
+		    // move the tile to its now position
+		    this.updateCell(tile, cells[k-1]);
+	    }
 
       this.updateCell(tmp, cells[cells.length - 1]);
-	}
+	  }
   }
 
   this.actuate();
@@ -224,8 +224,8 @@ GameManager.prototype.move = function (direction) {
 
           // The mighty 2048 tile
           if ((self.isBeyond && merged.value === 4096)
-			  ||
-			  (!self.isBeyond && merged.value === 2048)) self.won = true;
+			        ||
+			        (!self.isBeyond && merged.value === 2048)) self.won = true;
         } else {
           self.moveTile(tile, positions.farthest);
         }
